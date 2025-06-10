@@ -1,5 +1,74 @@
 ---
-title: "final"
+title: "ENVS 193DS Final"
 format: html
 ---
+
+Repository: https://github.com/chloecarlstrom/ENVS-193DS_spring-2025_final
+
+# Reading in data/packages
+
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+library(dplyr)
+library(lubridate)
+
+sst <- read.csv("data/SST_update2023.csv")
+
+```
+
+# Problem 1. Research Writing
+
+## a. Cleaning and summarizing
+```{r}
+sst_clean <- sst %>% #naming new object from sst data frame
+  mutate( #function to change data
+    year = factor(year(date)), #making year as a factor from date column
+    month = factor(month(date, label = TRUE), ordered = TRUE)) %>% #making a month factor from date
+  group_by(year, month) %>% #grouping by year and month
+  summarise(mean_monthly_sst = mean(temp, na.rm =TRUE)) %>% #using month data to find mean monthly sst
+  ungroup() %>% #ungrouping data
+  select(year, month, mean_monthly_sst) %>% #showing only selected columns
+  filter(year %in% c("2018", "2019", "2020", "2021", "2022", "2023")) 
+
+slice_sample(sst_clean, n = 5)
+
+str(sst_clean)
+
+
+```
+
+
+## b.
+```{r}
+ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, color = factor(year))) + #setting up data for figure, changing year to numeric
+  geom_line() + #line geometry
+  geom_point() + #point geometry
+  scale_color_manual(values = c("2018" = "lightblue", "2019" = "deepskyblue", "2020" = "dodgerblue3", "2021" = "royalblue1", "2022" = "blue2", "2023" = "darkblue")) + #coloring lines in gradient of single color
+  theme(
+    panel.background = element_blank(), #removing background
+    panel.grid = element_blank(), #removing grid lines
+    panel.border = element_rect(color = "black", fill = NA), #creating line around plot
+    axis.ticks = element_blank(), #removing axis ticks
+    legend.position.
+  ) +
+  labs(
+    x = "Month",
+    y = "Mean Monthly sea surface temperature (C)", 
+    color = "Year"
+  )
+  
+
+
+
+```
+
+
+## c.
+
+# Problem 2. Data Visualization
+
+## a. 
+
 
