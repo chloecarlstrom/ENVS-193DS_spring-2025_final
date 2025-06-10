@@ -7,7 +7,7 @@ Repository: https://github.com/chloecarlstrom/ENVS-193DS_spring-2025_final
 
 # Reading in data/packages
 
-```{r}
+```{r, warning=FALSE,message=FALSE}
 library(tidyverse)
 library(here)
 library(janitor)
@@ -17,9 +17,9 @@ library(MuMIn)
 library(DHARMa)
 library(ggeffects)
 
-sst <- read.csv("data/SST_update2023.csv")
+sst <- read.csv(here("data", "SST_update2023.csv"))
 
-nest_boxes <- read.csv("data/occdist.csv")
+nest_boxes <- read.csv(here("data", "occdist.csv"))
 
 ```
 
