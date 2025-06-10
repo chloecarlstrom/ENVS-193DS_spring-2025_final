@@ -51,7 +51,8 @@ ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, colo
     panel.grid = element_blank(), #removing grid lines
     panel.border = element_rect(color = "black", fill = NA), #creating line around plot
     axis.ticks = element_blank(), #removing axis ticks
-    legend.position.
+    legend.position = c(0.1, 0.9), 
+    legend.justification = c("left", "top")
   ) +
   labs(
     x = "Month",
