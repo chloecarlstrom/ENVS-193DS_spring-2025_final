@@ -13,14 +13,27 @@ library(here)
 library(janitor)
 library(dplyr)
 library(lubridate)
+library(MuMIn)
+library(DHARMa)
+library(ggeffects)
 
 sst <- read.csv("data/SST_update2023.csv")
+
+nest_boxes <- read.csv("data/occdist.csv")
 
 ```
 
 # Problem 1. Research Writing
 
-## a. Cleaning and summarizing
+## a.
+
+## b.
+
+## c.
+
+# Problem 2. Data Visualization
+
+## a. Cleaning and summarizing 
 ```{r}
 sst_clean <- sst %>% #naming new object from sst data frame
   mutate( #function to change data
@@ -39,8 +52,7 @@ str(sst_clean)
 
 ```
 
-
-## b.
+## b. Visualize the data
 ```{r}
 ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, color = factor(year))) + #setting up data for figure, changing year to numeric
   geom_line() + #line geometry
@@ -51,25 +63,135 @@ ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, colo
     panel.grid = element_blank(), #removing grid lines
     panel.border = element_rect(color = "black", fill = NA), #creating line around plot
     axis.ticks = element_blank(), #removing axis ticks
-    legend.position = c(0.1, 0.9), 
-    legend.justification = c("left", "top")
+    legend.position = c(0.1, 0.9), #adding legend position inside box
+    legend.justification = c("left", "top") #formating legend position
   ) +
-  labs(
-    x = "Month",
+  labs( #naming axes, legend
+    x = "Month", 
     y = "Mean Monthly sea surface temperature (C)", 
     color = "Year"
   )
-  
 
+```
+
+# Problem 3. Data Analysis
+
+## a. Response variable
+The 0s and 1s are used to denote if the species is present in the nest box with 1 being yes and 0 being no. 
+
+## b. Purpose of study
+The Swift Parrots are critically endangered and the other two species, Tree Martins and Common Starlings are their only nest competitors. Both exploit nest boxes, with Tree Martins being a native species and Common Starlings being introduced. 
+
+## c. Difference in "seasons"
+The years represent breeding seasons when the parrots bred at the study site. These breeding events are triggered by mast tree flowering events. 
+
+## d. Table of models
+4 models total: 
+
+| Model number |season| distance to forest edge |    description              |  
+|:------------:|:---:|:------------------------:|-----------------------------|  
+| 1            |     |                          | null model                  |
+| 2            |  X  |           X              | saturated model             | 
+| 3            |  X  |                          | season and sp occupancy     |   
+| 4            |     |           X              | distance and sp occupancy   |    
+
+
+## e. Run the models
+```{r}
+nest_boxes <- nest_boxes %>% 
+  mutate(
+    season = factor(season) #making season into a factor
+  )
+
+str(nest_boxes) #showing structure to ensure variables have correct form
+
+#null model
+model1 <- glm(sp ~ 1, #predictor and response variables
+              data = nest_boxes, #data frame
+              family = "binomial") #data form
+
+#saturated model
+model2 <- glm(sp ~ season + edge.distance, #predictor and response variables
+              data = nest_boxes, #data frame
+              family = "binomial") #data form
+
+#model with season only
+model3 <- glm(sp ~ season, #predictor and response variables
+              data = nest_boxes, #data frame
+              family = "binomial") #data form
+
+#model with distance to edge only
+model4 <- glm(sp ~ edge.distance, #predictor and response variables
+              data = nest_boxes, #data frame
+              family = "binomial") #data form
+
+```
+
+## f. Check the diagnostics
+```{r}
+#diagnostics for each model
+
+#model 1
+plot(
+  simulateResiduals(model1)
+     )
+
+#model 2
+plot(
+  simulateResiduals(model2)
+)
+
+#model 3
+plot(
+  simulateResiduals(model3)
+)
+
+#model 4
+plot(
+  simulateResiduals(model4)
+)
 
 
 ```
 
+## g. Select the best model
+```{r}
+AICc(
+  model1,
+  model2,
+  model3,
+  model4
+) %>% 
+arrange(AICc)
 
-## c.
+```
+The best model as determined by the Akaike's Information Criterion (AIC) was the saturated model with the combined effects of both season and distance from forest edge on nest box occupancy. 
 
-# Problem 2. Data Visualization
+## h. Visualize the model predictions
+```{r}
+mod_preds <- ggpredict(model2,
+                       terms = c("edge.distance", "season"))
+ggplot() +
+  geom_point(data = nest_boxes, 
+             aes(x = edge.distance, y = sp), 
+             alpha = 0.3) +
+  geom_ribbon(data = mod_preds,
+              aes(x = x, 
+                  ymin = conf.low, 
+                  ymax = conf.high, 
+                  fill = group),
+              alpha = 0.2) +
+  geom_line(data = mod_preds,
+            aes(x = x, y = predicted, color = group), size = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(
+    x = "Distance to Forest Edge",
+    y = "Nest Box Occupancy",
+    color = "Season", 
+    fill = "Season"
+  )
 
-## a. 
+
+```
 
 
