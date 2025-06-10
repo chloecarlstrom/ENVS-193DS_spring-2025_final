@@ -1,5 +1,7 @@
 ---
 title: "ENVS 193DS Final"
+author: "Chloe Carlstrom"
+date: "06-10-25"
 format: html
 ---
 
@@ -168,7 +170,7 @@ arrange(AICc)
 The best model as determined by the Akaike's Information Criterion (AIC) was the saturated model with the combined effects of both season and distance from forest edge on nest box occupancy. 
 
 ## h. Visualize the model predictions
-```{r}
+```{r, warning=FALSE}
 mod_preds <- ggpredict(model2,
                        terms = c("edge.distance", "season"))
 ggplot() +
@@ -204,7 +206,7 @@ ggplot() +
 
 ```
 
-*Figure 1. Predicted Swift Parrot nest box occupancy related distance to forest edge grouped by season* Swift parrots tend to occupy more nest boxes closer to the forest edge. Overall more nest boxes were occupied in 2016 than 2019. Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb
+**Figure 1. Predicted Swift Parrot nest box occupancy related distance to forest edge grouped by season** Swift parrots have a higher probability of occupying nest boxes closer to the forest edge. Overall the probability of nest boxes being occupied was higher 2016 than 2019. Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb
 
 ## j. Calculate model predictions
 ```{r}
@@ -218,4 +220,18 @@ ggpredict(model2, #model used
 ```
 
 ## k. Interpret your results
+For Swift Parrots, the probability of nest box occupancy decreases with increasing distance to forest edge. At forest edge (0m) the probability of occupancy was 0.48 in 2016 (95% CI: [0.33, 0.64]) and 0.30 in 2019 (95% CI: [0.18, 0.44]). At 900m distance from forest edge, the probability of occupancy was 0.12 in 2016 (95% CI: [0.06, 0.24]) and 0.06 in 2019 (95% CI:[0.03, 0.13]). This could be due to the fact that Tree Martins may have outcompeted Swift Parrots for next boxes farther from forest edge, forcing them to occupy nest boxes closer to forest edge. 
+
+# Problem 4. Affective and exploratory visualizations
+
+## a. Comparing visualizations
+
+### How are the visualizations different from each other in the way you have represented your data?
+
+### What similarities do you see between all your visualizations?
+
+### What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
+
+### What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
+
 
