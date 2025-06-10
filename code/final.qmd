@@ -186,12 +186,36 @@ ggplot() +
   scale_y_continuous(limits = c(0, 1)) +
   labs(
     x = "Distance to Forest Edge",
-    y = "Nest Box Occupancy",
+    y = "Swift Parrot Nest Box Occupancy",
     color = "Season", 
     fill = "Season"
-  )
+  ) +
+  scale_fill_manual(
+    values = c(
+      "2016" = "slateblue1",
+      "2019" = "mediumorchid3"
+    )) +
+  scale_color_manual(
+    values = c(
+      "2016" = "darkslateblue",
+      "2019" = "darkmagenta"
+    ))
 
 
 ```
 
+*Figure 1. Predicted Swift Parrot nest box occupancy related distance to forest edge grouped by season* Swift parrots tend to occupy more nest boxes closer to the forest edge. Overall more nest boxes were occupied in 2016 than 2019. Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb
+
+## j. Calculate model predictions
+```{r}
+
+ggpredict(model2, #model used
+          terms = c("edge.distance [0]", "season")) #setting distance to 0, adding season
+
+ggpredict(model2, #model used
+          terms = c("edge.distance [900]", "season")) #setting distance to 900, adding season
+
+```
+
+## k. Interpret your results
 
