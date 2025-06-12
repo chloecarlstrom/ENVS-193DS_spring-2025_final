@@ -239,8 +239,8 @@ My visualizations from homework 2 showcased the exact numerical data whereas my 
 The overall trends of my data and the way in which my data is organized, for example the axes generally had the same variables and were grouped in similar manners.
 
 ### What patterns (e.g. differences in means/counts/proportions/medians, trends through time, relationships between variables) do you see in each visualization? Are these different between visualizations? If so, why? If not, why not?
-Across my visualizations, although there were no strong relationships, I noticed that overall I generally had lower step counts 
+Across my visualizations, although there were no strong relationships, I noticed that overall I generally had lower step counts on days where I spent more time on campus. I also had higher step counts on days that I ran. I largely did longer workouts such as bike rides and hikes on days where I spent little to no time on campus. 
 
 ### What kinds of feedback did you get during week 9 in workshop or from the instructors? How did you implement or try those suggestions? If you tried and kept those suggestions, explain how and why; if not, explain why not.
-
+I got feedback to overall enlarge my visualization as it was a bit hard to decipher. I also labeled the y-axis with hour marks so that the data was better explained with actual numbers. I also go feedback that it was a bit difficult to tell the different size of footprints so I tried to make the variation more obvious and in the key I labeled what each footprint size meant in terms of 1000s of steps. 
 
