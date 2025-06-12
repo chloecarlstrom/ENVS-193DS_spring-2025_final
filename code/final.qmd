@@ -32,7 +32,7 @@ nest_boxes <- read.csv(here("data", "occdist.csv"))
 # Problem 1. Research Writing
 
 ## a. Transparent statistical methods
-In part 1 they used a correlation test (such as Pearson's r) because they state state that there is no "correlation" between the two variables. In part 2 they likely used a one-way ANOVA because they are looking at average nitrogen load compared across source (factor with multiple levels). 
+In part 1 they used a correlation test (such as Pearson's r) because they state state that they reject the null that there is no "correlation" between the two variables. In part 2 they likely used a one-way ANOVA because they are looking at average nitrogen load compared across source (factor with multiple levels). 
 
 ## b. More information needed
 I think it would be useful to use a linear model alongside the correlation test to provide more information on the strength and direction of the correlation. For the ANOVA, it would be helpful to run a Tukey HSD to provide insight into which groups are actually different.
