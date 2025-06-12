@@ -43,7 +43,7 @@ We found a large difference ($\eta^2 = 0.7$) in average nitrogen load (kg year^-
 # Problem 2. Data Visualization
 
 ## a. Cleaning and summarizing 
-```{r}
+```{r, warning=FALSE}
 sst_clean <- sst %>% #naming new object from sst data frame
   mutate( #function to change data
     year = factor(year(date)), #making year as a factor from date column
@@ -62,7 +62,7 @@ str(sst_clean)
 ```
 
 ## b. Visualize the data
-```{r}
+```{r, warning=FALSE}
 ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, color = factor(year))) + #setting up data for figure, changing year to numeric
   geom_line() + #line geometry
   geom_point() + #point geometry
@@ -106,7 +106,7 @@ The years represent breeding seasons when the parrots bred at the study site. Th
 
 
 ## e. Run the models
-```{r}
+```{r, warning=FALSE}
 nest_boxes <- nest_boxes %>% 
   mutate(
     season = factor(season) #making season into a factor
@@ -137,7 +137,7 @@ model4 <- glm(sp ~ edge.distance, #predictor and response variables
 ```
 
 ## f. Check the diagnostics
-```{r}
+```{r, warning=FALSE}
 #diagnostics for each model
 
 #model 1
@@ -164,7 +164,7 @@ plot(
 ```
 
 ## g. Select the best model
-```{r}
+```{r, warning=FALSE}
 AICc( #determining best model
   model1,
   model2,
@@ -216,7 +216,7 @@ ggplot() +
 **Figure 1. Predicted Swift Parrot nest box occupancy related distance to forest edge grouped by season** Swift parrots have a higher probability of occupying nest boxes closer to the forest edge. Overall the probability of nest boxes being occupied was higher 2016 than 2019. Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb
 
 ## j. Calculate model predictions
-```{r}
+```{r, warning=FALSE}
 
 ggpredict(model2, #model used
           terms = c("edge.distance [0]", "season")) #setting distance to 0, adding season
