@@ -3,6 +3,9 @@ title: "ENVS 193DS Final"
 author: "Chloe Carlstrom"
 date: "06-10-25"
 toc: true
+execute:
+  warning: false
+  message: false
 format: html
 ---
 
