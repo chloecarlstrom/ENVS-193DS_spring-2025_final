@@ -2,6 +2,7 @@
 title: "ENVS 193DS Final"
 author: "Chloe Carlstrom"
 date: "06-10-25"
+toc: true
 format: html
 ---
 
@@ -164,7 +165,7 @@ plot(
 
 ## g. Select the best model
 ```{r}
-AICc(
+AICc( #determining best model
   model1,
   model2,
   model3,
@@ -177,33 +178,33 @@ The best model as determined by the Akaike's Information Criterion (AIC) was the
 
 ## h. Visualize the model predictions
 ```{r, warning=FALSE}
-mod_preds <- ggpredict(model2,
+mod_preds <- ggpredict(model2, #predictions for model 2 using combined variables of edge distance and season
                        terms = c("edge.distance", "season"))
 ggplot() +
-  geom_point(data = nest_boxes, 
-             aes(x = edge.distance, y = sp), 
-             alpha = 0.3) +
-  geom_ribbon(data = mod_preds,
-              aes(x = x, 
+  geom_point(data = nest_boxes, #adding data points
+             aes(x = edge.distance, y = sp), #variables
+             alpha = 0.3) + #size of points
+  geom_ribbon(data = mod_preds, #adding CI ribbon
+              aes(x = x, #variables
                   ymin = conf.low, 
                   ymax = conf.high, 
-                  fill = group),
+                  fill = group), #filling by year
               alpha = 0.2) +
-  geom_line(data = mod_preds,
-            aes(x = x, y = predicted, color = group), size = 1) +
-  scale_y_continuous(limits = c(0, 1)) +
-  labs(
+  geom_line(data = mod_preds, #adding prediction line
+            aes(x = x, y = predicted, color = group), size = 1) + 
+  scale_y_continuous(limits = c(0, 1)) + #setting limits for y axis
+  labs( #titles
     x = "Distance to Forest Edge",
     y = "Swift Parrot Nest Box Occupancy",
     color = "Season", 
     fill = "Season"
   ) +
-  scale_fill_manual(
+  scale_fill_manual( #coloring ribbon
     values = c(
       "2016" = "slateblue1",
       "2019" = "mediumorchid3"
     )) +
-  scale_color_manual(
+  scale_color_manual( #coloring lines
     values = c(
       "2016" = "darkslateblue",
       "2019" = "darkmagenta"
