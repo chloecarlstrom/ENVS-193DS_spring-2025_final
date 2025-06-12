@@ -49,7 +49,7 @@ sst_clean <- sst %>% #naming new object from sst data frame
     year = factor(year(date)), #making year as a factor from date column
     month = factor(month(date, label = TRUE), ordered = TRUE)) %>% #making a month factor from date
   group_by(year, month) %>% #grouping by year and month
-  summarise(mean_monthly_sst = mean(temp, na.rm =TRUE)) %>% #using month data to find mean monthly sst
+  summarise(mean_monthly_sst = mean(temp, na.rm =TRUE), .groups = "drop") %>% #using month data to find mean monthly sst
   ungroup() %>% #ungrouping data
   select(year, month, mean_monthly_sst) %>% #showing only selected columns
   filter(year %in% c("2018", "2019", "2020", "2021", "2022", "2023")) 
