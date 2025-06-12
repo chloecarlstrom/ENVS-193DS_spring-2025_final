@@ -62,7 +62,7 @@ str(sst_clean)
 ```
 
 ## b. Visualize the data
-```{r, warning=FALSE, message=FALSE}
+```{r, warning = FALSE, message=FALSE}
 ggplot(data = sst_clean, aes(x = month, y = mean_monthly_sst, group = year, color = factor(year))) + #setting up data for figure, changing year to numeric
   geom_line() + #line geometry
   geom_point() + #point geometry
